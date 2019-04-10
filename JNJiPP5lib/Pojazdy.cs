@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//-	Utworzyć zestaw komponentów współpracujących ze sobą. to calosc jest komponentem
 namespace JNJiPP5lib
 {
-    public abstract class PojazdKomunikacjiMiejskiej
+    public abstract class PojazdKomunikacjiMiejskiej //		Abstrakcja -utworzyć i zastosować klasę abstrakcyjną 
     {
+        //	Hermetyzacja klasy – utworzyć właściwości i określić poziomy dostępu dla składowych klasy – zabezpieczyć pola za pomocą właściwości
         protected abstract int miejscaSiedziace { get; }
         protected abstract int miejscaStojace { get; }
 
@@ -29,7 +30,8 @@ namespace JNJiPP5lib
                     WyowlajZdarzenieZniszczeniePojazdu();
                 }
             } }
-
+        // koniec wlasciwosci
+        //	Polimorfizm (przeciążanie, nadpisywanie metod) - zastosować metody wirtualne, zaprojektować metody przeciążone, zastosować nadpisywanie metod wirtualnych
         public virtual void ZmienPredkosc(double ile)
         {
             aktualnaPredkoscPojazdu += ile;
@@ -58,13 +60,13 @@ namespace JNJiPP5lib
             pojazdNadajeSieDoUzytku = false;
 
         }
-
+        //udostepniam z poziomu komponentu klase ktora ma publiczne zdarzenie 
         public event Action PrzekroczenieBezpiecznejPredkosci;
         //public event A PrzekroczenieBezpiecznejPredkosci;
         //public delegate void A();
         public event Action ZniszczeniePojazdu;
     }
-
+    //	Dziedziczenie – świadomie zastosować dziedziczenie.
     public class Autobus : PojazdKomunikacjiMiejskiej
     {
         protected override int miejscaSiedziace => 40;
@@ -73,7 +75,7 @@ namespace JNJiPP5lib
 
         protected override int maxPredkosc => 90;
 
-        public override void ZmienPredkosc(double ile)
+        public override void ZmienPredkosc(double ile) //zastosować nadpisywanie metod wirtualnych
         {
             aktualnaPredkoscPojazdu += ile;
             if (aktualnaPredkoscPojazdu >= 0.7 * (maxPredkosc))
@@ -82,7 +84,7 @@ namespace JNJiPP5lib
             }
         }
     }
-
+    //	Dziedziczenie – świadomie zastosować dziedziczenie.
     public class Tramwaj : PojazdKomunikacjiMiejskiej
     {
         protected override int miejscaSiedziace => 50;
